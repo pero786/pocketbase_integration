@@ -5,6 +5,7 @@ import { useNavigate } from "@solidjs/router";
 export default function SignIn() {
   const navigate = useNavigate();
   const [error, setError] = createSignal(false);
+  const [success, setSuccess] = createSignal(false);
 
   async function formSubmit(event) {
     event.preventDefault();
@@ -14,9 +15,12 @@ export default function SignIn() {
 
     try {
       await pb.collection("users").authWithPassword(email, password);
-      navigate("/");
+      setSuccess(true); 
+      setError(false); 
+      setTimeout(() => navigate("/"), 3000); 
     } catch (error) {
       console.log("Error", error);
+      setSuccess(false); 
       setError(true);
     }
   }
@@ -66,6 +70,12 @@ export default function SignIn() {
       <Show when={error()}>
         <div class="mt-4 p-4 bg-red-500 text-white font-medium rounded-lg shadow">
           ❌ Dogodila se greška prilikom prijave, provjerite svoju e-mail adresu i/ili zaporku.
+        </div>
+      </Show>
+
+      <Show when={success()}>
+        <div class="mt-4 p-4 bg-green-500 text-white font-medium rounded-lg shadow">
+          🎉 Prijava uspješna! Preusmjeravam vas na početnu stranicu...
         </div>
       </Show>
     </div>
