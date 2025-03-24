@@ -25,14 +25,13 @@ export default function SignUp() {
         name,
         email,
         password,
-        passwordConfirm
+        passwordConfirm,
       });
       setSuccess(true);
 
       setTimeout(() => {
         navigate("/");
       }, 3000);
-
     } catch (error) {
       console.log("Error", error);
       setError(true);
@@ -40,43 +39,84 @@ export default function SignUp() {
   }
 
   return (
-    <>
-      <div class="text-3xl font-mono font-bold">Registracija korisnika</div>
+    <div class="max-w-md mx-auto bg-white shadow-lg rounded-xl p-6 mt-8">
+      <h2 class="text-3xl font-bold text-cyan-600 mb-6 text-center">
+        Registracija korisnika
+      </h2>
+
       <Show when={!success()}>
-        <form onSubmit={formSubmit} class="w-md">
-          <div class="p-2 flex flex-col gap-1">
-            <label> Ime </label>
-            <input class="border rounded p-2" type="text" name="name" required />
+        <form onSubmit={formSubmit} class="space-y-4">
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">
+              Ime
+            </label>
+            <input
+              class="w-full border rounded-lg p-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              type="text"
+              name="name"
+              required
+            />
           </div>
-          <div class="p-2 flex flex-col gap-1">
-            <label> E-mail adresa: </label>
-            <input class="border rounded p-2" type="email" name="email" required />
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">
+              E-mail adresa
+            </label>
+            <input
+              class="w-full border rounded-lg p-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              type="email"
+              name="email"
+              required
+            />
           </div>
-          <div class="p-2 flex flex-col gap-1">
-            <label> Zaporka: </label>
-            <input class="border rounded p-2" type="password" name="password" required minLength="6" />
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">
+              Zaporka
+            </label>
+            <input
+              class="w-full border rounded-lg p-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              type="password"
+              name="password"
+              required
+              minLength="6"
+            />
           </div>
-          <div class="p-2 flex flex-col gap-1">
-            <label> Potvrda zaporke </label>
-            <input class="border rounded p-2" type="password" name="passwordConfirm" required />
+
+          <div>
+            <label class="block text-gray-700 font-medium mb-1">
+              Potvrda zaporke
+            </label>
+            <input
+              class="w-full border rounded-lg p-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              type="password"
+              name="passwordConfirm"
+              required
+            />
           </div>
-          <div class="p-2 flex flex-col gap-1">
-            <input class="border rounded p-2 bg-gray-600 hover:brightness-120" type="submit" value="Pošalji" />
+
+          <div>
+            <button
+              class="w-full bg-amber-500 text-white font-medium py-3 rounded-lg shadow-md hover:bg-amber-600 transition"
+              type="submit"
+            >
+              Pošalji
+            </button>
           </div>
         </form>
       </Show>
 
       <Show when={success()}>
-        <div class="m-2 p-4 rounded bg-emerald-500 w-md">
-          Uspješno ste se registrirali! Preusmjeravanje...
+        <div class="mt-4 p-4 bg-emerald-500 text-white font-medium rounded-lg shadow">
+          ✅ Uspješno ste se registrirali! Preusmjeravanje...
         </div>
       </Show>
 
       <Show when={error()}>
-        <div class="m-2 p-4 rounded bg-red-300 w-md">
-          Dogodila se greška prilikom stvaranja korisničkog računa.
+        <div class="mt-4 p-4 bg-red-500 text-white font-medium rounded-lg shadow">
+          ❌ Dogodila se greška prilikom stvaranja korisničkog računa.
         </div>
       </Show>
-    </>
+    </div>
   );
 }
