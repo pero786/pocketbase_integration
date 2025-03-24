@@ -8,7 +8,6 @@ import { Show } from "solid-js";
 import { A } from "@solidjs/router";
 import Signout from "./pages/SignOut";
 
-
 export default function App() {
   return (
     <AuthProvider>
@@ -28,27 +27,40 @@ function Layout(props) {
   const appName = import.meta.env.VITE_APP_NAME;
   const user = useAuth();
 
-
   return (
-    <>
-      <header class=" flex flex-row gap-2 items-center p-2">
-        <div class="flex-none">
-          <A class="text-4xl font-bold font-sans uppercase text-cyan-600" href="/">{appName}</A>
+    <div class="flex flex-col min-h-screen bg-gray-100">
+      <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+          <A class="text-3xl font-bold font-sans uppercase text-cyan-600 tracking-wide" href="/">
+            {appName}
+          </A>
+          <nav class="flex gap-4">
+            <Show when={user()}>
+              <A class="px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 transition" href="/signout">
+                Odjava
+              </A>
+            </Show>
+            <Show when={!user()}>
+              <A class="px-4 py-2 bg-amber-500 text-white font-medium rounded-lg shadow-md hover:bg-amber-600 transition" href="/signup">
+                Registracija
+              </A>
+              <A class="px-4 py-2 bg-amber-500 text-white font-medium rounded-lg shadow-md hover:bg-amber-600 transition" href="/signin">
+                Prijava
+              </A>
+            </Show>
+          </nav>
         </div>
-        <nav class="flex-1 pl text-right">
-          <Show when={user()}>
-            <A class="p-2 bg-red-500 text-gray-50 font-bold rounded hover:brightness-90" href="/signout">Odjava</A>
-          </Show>
-          <Show when={!user()}>
-            <A class="p-2 bg-amber-500 text-gray-50 font-bold rounded hover:brightness-120" href="/signup">Registracija</A>
-            <A class="p-2 bg-amber-500 text-gray-50 font-bold rounded hover:brightness-120" href="/signin">Prijava</A>
-          </Show>
-        </nav>
       </header>
-      <main>{props.children}</main>
-      <footer class="flex-none py-6 px-2 bg-cyan-700 text-white text-sm text-center">
-        Copyright {appName}
+
+      <main class="flex-grow container mx-auto px-4 py-8">
+        {props.children}
+      </main>
+
+      <footer class="bg-cyan-700 text-white text-center py-4 mt-8">
+        <div class="container mx-auto text-sm">
+          © {new Date().getFullYear()} {appName}. Sva prava pridržana.
+        </div>
       </footer>
-    </>
+    </div>
   );
 }
