@@ -7,6 +7,7 @@ import Error from "./pages/Error";
 import { Show } from "solid-js";
 import { A } from "@solidjs/router";
 import Signout from "./pages/SignOut";
+import events from "./pages/Events";
 
 export default function App() {
   return (
@@ -14,7 +15,8 @@ export default function App() {
       <Router root={Layout}>
         <Route path="/" component={Home} />
         <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp}/>
+        <Route path="/signup" component={SignUp} />
+        <Route path="/events" component={events} />
         <Route path="/signout" component={Signout} />
         <Route path="/error" component={Error} />
         <Route path="*" component={() => <Navigate href="/error" />} />
@@ -36,6 +38,11 @@ function Layout(props) {
           </A>
           <nav class="flex gap-4">
             <Show when={user()}>
+              <Show when={user().role === "admin"}>
+                <A class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 transition" href="/events">
+                  Događaji
+                </A>
+              </Show>
               <A class="px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 transition" href="/signout">
                 Odjava
               </A>
