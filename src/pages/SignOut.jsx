@@ -1,6 +1,7 @@
 import { onMount } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import { pb } from "../services/pocketbase";
+import AlertMessage from "../components/AlertMessage";
 
 export default function Signout() {
   const navigate = useNavigate();
@@ -14,8 +15,6 @@ export default function Signout() {
   });
 
   return (
-    <div class="m-2 p-4 rounded bg-emerald-500 w-md">
-      Uspješno ste se odjavili. Preusmjeravanje na naslovnicu...
-    </div>
+    <AlertMessage message="Uspješno ste se odjavili." />
   );
 }

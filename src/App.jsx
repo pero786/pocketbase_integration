@@ -8,6 +8,7 @@ import { Show } from "solid-js";
 import { A } from "@solidjs/router";
 import Signout from "./pages/SignOut";
 import events from "./pages/Events";
+import Button from "./components/Button";
 
 export default function App() {
   return (
@@ -39,21 +40,13 @@ function Layout(props) {
           <nav class="flex gap-4">
             <Show when={user()}>
               <Show when={user().role === "admin"}>
-                <A class="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 transition" href="/events">
-                  Događaji
-                </A>
+                <Button href="/events" label="Događaji" />
               </Show>
-              <A class="px-4 py-2 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 transition" href="/signout">
-                Odjava
-              </A>
+              <Button href="/signout" label="Odjava" color="bg-pink-500" />
             </Show>
             <Show when={!user()}>
-              <A class="px-4 py-2 bg-amber-500 text-white font-medium rounded-lg shadow-md hover:bg-amber-600 transition" href="/signup">
-                Registracija
-              </A>
-              <A class="px-4 py-2 bg-amber-500 text-white font-medium rounded-lg shadow-md hover:bg-amber-600 transition" href="/signin">
-                Prijava
-              </A>
+              <Button href="/signin" label="Prijava" color="bg-amber-500" />
+              <Button href="/signup" label="Registracija" />
             </Show>
           </nav>
         </div>

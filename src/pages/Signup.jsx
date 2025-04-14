@@ -1,6 +1,7 @@
 import { createSignal, Show } from "solid-js";
 import { pb } from "../services/pocketbase";
 import { useNavigate } from "@solidjs/router";
+import AlertMessage from "../components/AlertMessage";
 
 export default function SignUp() {
   const [error, setError] = createSignal(false);
@@ -107,15 +108,11 @@ export default function SignUp() {
       </Show>
 
       <Show when={success()}>
-        <div class="mt-4 p-4 bg-emerald-500 text-white font-medium rounded-lg shadow">
-          ✅ Uspješno ste se registrirali! Preusmjeravanje...
-        </div>
+        <AlertMessage message="Uspješno ste se registrirali na aplikaciju." />
       </Show>
 
       <Show when={error()}>
-        <div class="mt-4 p-4 bg-red-500 text-white font-medium rounded-lg shadow">
-          ❌ Dogodila se greška prilikom stvaranja korisničkog računa.
-        </div>
+        <AlertMessage type="error" message="Dogodila se greška prilikom stvaranja korisničkog računa, provjerite svoje podatke." />
       </Show>
     </div>
   );

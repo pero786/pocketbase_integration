@@ -1,6 +1,7 @@
 import { createSignal, Show } from "solid-js";
 import { pb } from "../services/pocketbase";
 import { useNavigate } from "@solidjs/router";
+import AlertMessage from "../components/AlertMessage";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -15,12 +16,12 @@ export default function SignIn() {
 
     try {
       await pb.collection("users").authWithPassword(email, password);
-      setSuccess(true); 
-      setError(false); 
-      setTimeout(() => navigate("/"), 3000); 
+      setSuccess(true);
+      setError(false);
+      setTimeout(() => navigate("/"), 3000);
     } catch (error) {
       console.log("Error", error);
-      setSuccess(false); 
+      setSuccess(false);
       setError(true);
     }
   }
@@ -68,9 +69,7 @@ export default function SignIn() {
       </form>
 
       <Show when={error()}>
-        <div class="mt-4 p-4 bg-red-500 text-white font-medium rounded-lg shadow">
-          ❌ Dogodila se greška prilikom prijave, provjerite svoju e-mail adresu i/ili zaporku.
-        </div>
+        <AlertMessage type="error" message="Dogodila se greška prilikom prijave, provjerite svoju e-mail adresu i/ili zaporku." />
       </Show>
 
       <Show when={success()}>
